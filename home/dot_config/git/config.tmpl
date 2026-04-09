@@ -1,0 +1,64 @@
+[user]
+	name = Diorman Colmenares
+	email = 229201+diorman@users.noreply.github.com
+	signingKey = E8F90C5215A46B09
+
+[commit]
+	gpgSign = true
+
+[tag]
+	gpgSign = true
+
+[alias]
+	s       = status
+	sw      = switch
+	fsw     = fuzzy-switch
+	co      = commit
+	commend = commit --amend --no-edit
+	stush   = stash --include-untracked
+	rbi     = "!f() { git rebase -i HEAD~$1; }; f"
+	fo      = "!f() { git fetch origin $1:$1; }; f"
+
+[branch]
+	autosetuprebase = always
+
+[color]
+	diff   = auto
+	status = auto
+	branch = auto
+	ui     = true
+
+[core]
+	editor   = nvim
+	autocrlf = input
+
+{{ if eq .chezmoi.os "darwin" -}}
+[credential]
+	helper = osxkeychain
+{{ end -}}
+
+[diff]
+	algorithm = histogram
+
+[fetch]
+	prune = true
+
+[merge]
+	conflictstyle = zdiff3
+
+[pull]
+	rebase = true
+
+[rebase]
+	autoStash = true
+
+[format]
+	pretty = format:%Cred%h%Creset%C(yellow)%d%Creset %s %C(bold blue)<%an>%n%C(magenta)%ad %Cgreen(%cr)%Creset%n
+
+[init]
+	defaultBranch = main
+
+[push]
+	autoSetupRemote = true
+	default         = current
+	followTags      = true

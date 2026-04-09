@@ -1,0 +1,9 @@
+.direnv/
+.vim/
+.DS_Store
+.idea
+*.iml
+.classpath
+.project
+.settings
+.factorypath
