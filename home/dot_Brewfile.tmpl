@@ -1,0 +1,74 @@
+# ==============================================================================
+# 1. GNU SYSTEM REPLACEMENTS
+# Drop-in upgrades for outdated BSD/POSIX utilities shipped with macOS.
+# ==============================================================================
+brew "coreutils"      # ls, cp, mv, cat, chmod, and ~100 more
+brew "diffutils"      # diff, cmp, diff3
+brew "findutils"      # find, xargs, locate
+brew "gawk"           # awk with full GNU extensions and gensub()
+brew "gnu-getopt"     # getopt with long-option (--flag) support
+brew "gnu-sed"        # sed with full GNU extensions
+brew "gnu-tar"        # tar with full POSIX + GNU long-option support
+brew "gnu-time"       # /usr/bin/time replacement with memory stats
+brew "gnu-which"      # which that respects aliases and functions
+brew "grep"           # grep with Perl-regex (-P) support
+brew "less"           # less with UTF-8 and ANSI color support (macOS ships 2013 v487)
+brew "make"           # make 4.x (macOS ships the ancient 2006 v3.81)
+
+# ==============================================================================
+# 2. MODERN CLI REWRITES
+# Modern rewrites of classic tools — faster, friendlier, and Git-aware.
+# ==============================================================================
+brew "bat"            # cat: syntax highlighting, line numbers, Git diff markers
+brew "eza"            # ls + tree: Git-aware, icons, human-readable by default
+brew "fd"             # find: intuitive syntax, respects .gitignore
+brew "ripgrep"        # grep: searches respect .gitignore, 10–100× faster
+
+# ==============================================================================
+# 3. GENERAL CLI UTILITIES
+# Standalone tools that fill gaps not covered by GNU/modern rewrites.
+# ==============================================================================
+brew "curl"           # HTTP/FTP client with HTTP/2 and HTTP/3 support
+brew "fzf"            # Fuzzy finder: interactive search for files, history, etc.
+brew "jq"             # JSON processor and query language
+brew "watch"          # Re-run a command on an interval and display output
+brew "wget"           # Recursive file downloader; better than curl for mirroring
+
+# ==============================================================================
+# 4. SHELL & INTERACTIVE ENVIRONMENT
+# Everything that defines the feel of a terminal session.
+# ==============================================================================
+brew "bash"           # Bash 5.x (macOS ships 3.2 due to GPLv3 licensing)
+brew "direnv"         # Load/unload env vars automatically per directory
+brew "fish"           # Modern shell with autosuggestions and syntax highlighting
+brew "neovim"         # Vim modernized: Lua config, LSP, async plugins
+brew "starship"       # Cross-shell prompt with Git, language, and cloud context
+
+# ==============================================================================
+# 5. DEVELOPER TOOLCHAIN
+# Source control, project management, and runtime version management.
+# ==============================================================================
+brew "chezmoi"        # Dotfiles manager with templating and secret support
+brew "gh"             # GitHub CLI: PRs, issues, workflows from the terminal
+brew "git"            # Latest Git (macOS ships an outdated Xcode-bundled version)
+brew "lazygit"        # Terminal UI for Git — stage, diff, rebase interactively
+brew "mise"           # Polyglot runtime manager for Node, Python, Ruby, Go, etc.
+
+# ==============================================================================
+# 6. CLOUD, CONTAINERS & KUBERNETES
+# ==============================================================================
+brew "awscli"         # AWS CLI v2: manage all AWS services
+brew "colima"         # Lightweight Docker/containerd runtime for macOS (no Docker Desktop)
+brew "k9s"            # Terminal UI for browsing and managing Kubernetes clusters
+brew "kubectl"        # Kubernetes CLI
+brew "kubectx"        # kubectx: switch clusters; kubens: switch namespaces
+
+# ==============================================================================
+# 7. SECURITY & CRYPTOGRAPHY
+# ==============================================================================
+brew "gnupg"          # OpenPGP: key generation, signing, encryption
+brew "openssl"        # TLS/SSL library and CLI (macOS ships LibreSSL)
+brew "pinentry-mac"   # Native macOS passphrase dialog for GPG agent
+
+{{ if eq .profile "zippy" }}
+{{ end }}
