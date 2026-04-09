@@ -70,5 +70,11 @@ brew "gnupg"          # OpenPGP: key generation, signing, encryption
 brew "openssl"        # TLS/SSL library and CLI (macOS ships LibreSSL)
 brew "pinentry-mac"   # Native macOS passphrase dialog for GPG agent
 
+# ==============================================================================
+# 8. APPLICATIONS (CASKS)
+# ==============================================================================
+cask "font-jetbrains-mono-nerd-font"  # JetBrains Mono with Nerd Font icons
+cask "ghostty"                        # GPU-accelerated terminal emulator
+
 {{ if eq .profile "zippy" }}
 {{ end }}

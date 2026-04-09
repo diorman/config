@@ -1,0 +1,16 @@
+{{ if eq .chezmoi.os "darwin" }}
+eval "$(/opt/homebrew/bin/brew shellenv)"
+export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+export PATH="/opt/homebrew/opt/diffutils/bin:$PATH"
+export PATH="/opt/homebrew/opt/findutils/libexec/gnubin:$PATH"
+export PATH="/opt/homebrew/opt/gnu-getopt/bin:$PATH"
+export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+export PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"
+export PATH="/opt/homebrew/opt/gnu-time/libexec/gnubin:$PATH"
+export PATH="/opt/homebrew/opt/gnu-which/libexec/gnubin:$PATH"
+export PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
+export PATH="/opt/homebrew/opt/less/bin:$PATH"
+export PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH"
+{{ end }}
+
+eval "$(starship init bash)"

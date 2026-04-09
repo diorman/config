@@ -1,0 +1,6 @@
+[shell]
+disabled = false
+format = "[$indicator]($style)"
+fish_indicator = ""
+bash_indicator = "\\$_ "
+style = "bold cyan"

@@ -1,0 +1,33 @@
+status is-login; and begin
+
+{{ if eq .chezmoi.os "darwin" }}
+    /opt/homebrew/bin/brew shellenv | source
+    fish_add_path /opt/homebrew/opt/coreutils/libexec/gnubin
+    fish_add_path /opt/homebrew/opt/diffutils/bin
+    fish_add_path /opt/homebrew/opt/findutils/libexec/gnubin
+    fish_add_path /opt/homebrew/opt/gnu-getopt/bin
+    fish_add_path /opt/homebrew/opt/gnu-sed/libexec/gnubin
+    fish_add_path /opt/homebrew/opt/gnu-tar/libexec/gnubin
+    fish_add_path /opt/homebrew/opt/gnu-time/libexec/gnubin
+    fish_add_path /opt/homebrew/opt/gnu-which/libexec/gnubin
+    fish_add_path /opt/homebrew/opt/grep/libexec/gnubin
+    fish_add_path /opt/homebrew/opt/less/bin
+    fish_add_path /opt/homebrew/opt/make/libexec/gnubin
+{{ end }}
+
+end
+
+status is-interactive; and begin
+
+    set fish_greeting
+    fish_config theme choose catppuccin-frappe --color-theme=dark
+    set -x GPG_TTY (tty)
+    fish_default_key_bindings
+
+    if test "$TERM" != dumb
+        starship init fish | source
+    end
+
+    direnv hook fish | source
+
+end
