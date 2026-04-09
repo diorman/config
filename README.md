@@ -44,3 +44,12 @@ chezmoi apply
 ```sh
 brew bundle --global
 ```
+
+### 7. Import GPG key (macOS)
+
+Required before making signed git commits. Download the private key from 1Password, then:
+
+```sh
+gpg --import /path/to/gpg-private-key.asc
+rm /path/to/gpg-private-key.asc
+```
