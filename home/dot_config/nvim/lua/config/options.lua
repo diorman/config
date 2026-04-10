@@ -73,8 +73,7 @@ local options = {
   -- Disable line wrapping
   wrap = false,
 
-  -- bufferline requires "globals" to be included to restore pinned buffers
-  sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" },
+  sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "skiprtp", "folds" },
 }
 
 for k, v in pairs(options) do
