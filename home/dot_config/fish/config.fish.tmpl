@@ -1,7 +1,10 @@
 status is-login; and begin
 
 {{ if eq .chezmoi.os "darwin" }}
+    # Bootstrap Homebrew environment
     /opt/homebrew/bin/brew shellenv | source
+
+    # Prefer GNU tools over macOS BSD equivalents
     fish_add_path /opt/homebrew/opt/coreutils/libexec/gnubin
     fish_add_path /opt/homebrew/opt/diffutils/bin
     fish_add_path /opt/homebrew/opt/findutils/libexec/gnubin
@@ -15,19 +18,33 @@ status is-login; and begin
     fish_add_path /opt/homebrew/opt/make/libexec/gnubin
 {{ end }}
 
+    # Source Nix profile if installed
+    if test -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish'
+        source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish'
+    end
+
 end
 
 status is-interactive; and begin
 
+    # Disable the default greeting message
     set fish_greeting
-    fish_config theme choose catppuccin-frappe --color-theme=dark
-    set -x GPG_TTY (tty)
-    fish_default_key_bindings
 
+    # Theme
+    fish_config theme choose catppuccin-frappe --color-theme=dark
+
+    # Use vim key bindings
+    fish_vi_key_bindings
+
+    # Required by GPG agent for passphrase prompts in the terminal
+    set -x GPG_TTY (tty)
+
+    # Prompt
     if test "$TERM" != dumb
         starship init fish | source
     end
 
+    # Auto-load/unload .envrc on directory change
     direnv hook fish | source
 
 end
