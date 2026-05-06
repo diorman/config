@@ -2,20 +2,7 @@ status is-login; and begin
 
 {{ if eq .chezmoi.os "darwin" }}
     # Bootstrap Homebrew environment
-    /opt/homebrew/bin/brew shellenv | source
-
-    # Prefer GNU tools over macOS BSD equivalents
-    fish_add_path /opt/homebrew/opt/coreutils/libexec/gnubin
-    fish_add_path /opt/homebrew/opt/diffutils/bin
-    fish_add_path /opt/homebrew/opt/findutils/libexec/gnubin
-    fish_add_path /opt/homebrew/opt/gnu-getopt/bin
-    fish_add_path /opt/homebrew/opt/gnu-sed/libexec/gnubin
-    fish_add_path /opt/homebrew/opt/gnu-tar/libexec/gnubin
-    fish_add_path /opt/homebrew/opt/gnu-time/libexec/gnubin
-    fish_add_path /opt/homebrew/opt/gnu-which/libexec/gnubin
-    fish_add_path /opt/homebrew/opt/grep/libexec/gnubin
-    fish_add_path /opt/homebrew/opt/less/bin
-    fish_add_path /opt/homebrew/opt/make/libexec/gnubin
+    # /opt/homebrew/bin/brew shellenv | source
 {{ end }}
 
     # Source Nix profile if installed
@@ -35,9 +22,14 @@ status is-interactive; and begin
 
     # Use vim key bindings
     fish_vi_key_bindings
+    bind -M insert \cr history-pager
 
     # Required by GPG agent for passphrase prompts in the terminal
     set -x GPG_TTY (tty)
+
+    # Set nvim as the default editor
+    set -x EDITOR nvim
+    set -x VISUAL nvim
 
     # Prompt
     if test "$TERM" != dumb
@@ -46,5 +38,10 @@ status is-interactive; and begin
 
     # Auto-load/unload .envrc on directory change
     direnv hook fish | source
+
+    # Auto-start tmux on interactive shells outside tmux
+    if not set -q TMUX
+        tmux attach 2>/dev/null; or tmux new-session -s default -c ~
+    end
 
 end
