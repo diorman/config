@@ -1,0 +1,3 @@
+[global]
+# This specifically targets the list of +VARIABLE names you see
+hide_env_diff = true
