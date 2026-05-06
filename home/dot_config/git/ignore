@@ -1,3 +1,4 @@
+.devenv/
 .direnv/
 .vim/
 .DS_Store
@@ -7,3 +8,4 @@
 .project
 .settings
 .factorypath
+**/.claude/settings.local.json
