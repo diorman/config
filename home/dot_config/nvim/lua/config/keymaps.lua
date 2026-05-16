@@ -38,5 +38,4 @@ map("n", "N", "Nzzzv")
 map("x", "<leader>p", [["_dP]])
 map({ "n", "v" }, "<leader>d", [["_d]])
 
-map({ "n", "v" }, "<leader>y", [["+y]])
-map("n", "<leader>Y", [["+Y]])
+map("n", "<leader>yp", "<cmd>let @+ = expand('%')<cr>", { desc = "Yank: Relative file path to clipboard" })
