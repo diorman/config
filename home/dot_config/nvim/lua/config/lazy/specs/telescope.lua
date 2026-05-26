@@ -1,7 +1,7 @@
 return {
   "nvim-telescope/telescope.nvim",
   event = "VimEnter",
-  branch = "0.1.x",
+  version = "*",
   dependencies = {
     "nvim-lua/plenary.nvim",
     { -- If encountering errors, see telescope-fzf-native README for installation instructions
@@ -20,10 +20,33 @@ return {
     { "nvim-telescope/telescope-ui-select.nvim" },
   },
   config = function()
+    local layout_actions = require("telescope.actions.layout")
+
     require("telescope").setup({
       defaults = {
         file_ignore_patterns = {
-          "**/node_modules/*",
+          "%.git/",
+        },
+
+        preview = {
+          hide_on_startup = true,
+        },
+
+        mappings = {
+          i = { ["<C-x>"] = layout_actions.toggle_preview },
+          n = { ["<C-x>"] = layout_actions.toggle_preview },
+        },
+
+        layout_strategy = "horizontal",
+        layout_config = {
+          width = 0.95,
+          height = 0.95,
+          preview_width = 0.6,
+        },
+      },
+      pickers = {
+        find_files = {
+          hidden = true,
         },
       },
       extensions = {
@@ -43,7 +66,13 @@ return {
     vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "Search keymaps" })
     vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "Search files" })
     vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "Search select telescope" })
-    vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "Search current word" })
+    vim.keymap.set({ "n", "v" }, "<leader>sw", builtin.grep_string, { desc = "Search current word" })
+    vim.keymap.set("n", "<leader>sc", builtin.commands, { desc = "Search commands" })
+
+    vim.keymap.set("n", "<leader>sb", builtin.git_branches, { desc = "Search git branches" })
+    vim.keymap.set("n", "<leader>sm", builtin.git_status, { desc = "Search git modified files" })
+    vim.keymap.set("n", "<leader>sH", builtin.git_bcommits, { desc = "Search git history (current buffer)" })
+    vim.keymap.set("n", "<leader>sC", builtin.git_commits, { desc = "Search git commits" })
     vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "Search by grep" })
     vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "Search diagnostics" })
     vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "Search resume" })
