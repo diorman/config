@@ -19,6 +19,10 @@ return {
     },
   },
   {
+    "NMAC427/guess-indent.nvim",
+    opts = {},
+  },
+  {
     "folke/which-key.nvim",
     opts = {},
   },
