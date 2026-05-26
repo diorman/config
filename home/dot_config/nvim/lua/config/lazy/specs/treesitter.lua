@@ -1,15 +1,12 @@
 return {
-  { -- Highlight, edit, and navigate code
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
+  {
+    "romus204/tree-sitter-manager.nvim",
     lazy = false,
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter-textobjects",
-    },
-    -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
       ensure_installed = {
         "bash",
+        "c",
+        "diff",
 
         -- Go
         "go",
@@ -17,41 +14,35 @@ return {
         "gowork",
         "gosum",
 
+        "html",
         "lua",
+        "luadoc",
         "make",
         "markdown",
         "markdown_inline",
+        "query",
         "ruby",
         "rust",
         "toml",
         "typescript",
+        "vim",
+        "vimdoc",
       },
-      highlight = {
-        enable = true,
-        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-        --  If you are experiencing weird indenting issues, add the language to
-        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { "ruby" },
-      },
-      indent = { enable = true, disable = { "ruby" } },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = "<C-space>",
-          node_incremental = "<C-space>",
-          scope_incremental = false,
-          node_decremental = "<bs>",
-        },
-      },
-      textobjects = {
-        move = {
-          enable = true,
-          goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer", ["]a"] = "@parameter.inner" },
-          goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
-          goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer", ["[a"] = "@parameter.inner" },
-          goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer", ["[A"] = "@parameter.inner" },
-        },
-      },
+      auto_install = false,
+      highlight = true,
     },
+    init = function()
+      vim.api.nvim_create_autocmd("FileType", {
+        callback = function(args)
+          if args.match == "ruby" then
+            return
+          end
+          local ok, _ = pcall(vim.treesitter.get_parser, args.buf)
+          if ok then
+            vim.bo[args.buf].indentexpr = "v:lua.vim.treesitter.indent()"
+          end
+        end,
+      })
+    end,
   },
 }
