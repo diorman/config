@@ -79,7 +79,12 @@ return {
       map("n", "<leader>gtw", require("gitsigns").toggle_word_diff, "Toggle word diff")
 
       -- Text object: operate on a hunk (e.g. dih, vih, yih, cih)
-      vim.keymap.set({ "o", "x" }, "ih", require("gitsigns").select_hunk, { buffer = buffer, desc = "Git: Select hunk" })
+      vim.keymap.set(
+        { "o", "x" },
+        "ih",
+        require("gitsigns").select_hunk,
+        { buffer = buffer, desc = "Git: Select hunk" }
+      )
     end,
   },
 }
