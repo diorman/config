@@ -70,6 +70,16 @@ return {
       map("n", "<leader>ghD", function()
         require("gitsigns").diffthis("@")
       end, "Diff against last commit")
+
+      map("n", "<leader>ghq", require("gitsigns").setqflist, "Hunks to quickfix (this file)")
+      map("n", "<leader>ghQ", function()
+        require("gitsigns").setqflist("all")
+      end, "Hunks to quickfix (all files)")
+
+      map("n", "<leader>gtw", require("gitsigns").toggle_word_diff, "Toggle word diff")
+
+      -- Text object: operate on a hunk (e.g. dih, vih, yih, cih)
+      vim.keymap.set({ "o", "x" }, "ih", require("gitsigns").select_hunk, { buffer = buffer, desc = "Git: Select hunk" })
     end,
   },
 }
