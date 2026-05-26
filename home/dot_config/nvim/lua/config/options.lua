@@ -11,11 +11,17 @@ local options = {
   -- Allows neovim to access the system clipboard
   clipboard = "unnamedplus",
 
+  -- Prompt to save changes instead of erroring on destructive ops with unsaved buffers
+  confirm = true,
+
   -- Highlight the text line of the cursor
   cursorline = true,
 
   -- Makes search act like search in modern browsers
   incsearch = true,
+
+  -- Show live preview of :substitute changes in a split window
+  inccommand = "split",
 
   -- Case insensitive searching UNLESS /C or capital in search
   ignorecase = true,
