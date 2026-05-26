@@ -23,6 +23,8 @@ status is-interactive; and begin
     # Use vim key bindings
     fish_vi_key_bindings
     bind -M insert \cr history-pager
+    bind -M default yy fish_clipboard_copy
+    bind -M default Y begin-selection end-of-line fish_clipboard_copy end-selection
 
     # Required by GPG agent for passphrase prompts in the terminal
     set -x GPG_TTY (tty)
