@@ -4,7 +4,7 @@ return {
     version = "*",
     config = function()
       -- mini.ai ===============================================================
-      require("mini.ai").setup()
+      require("mini.ai").setup({ n_lines = 500 })
 
       -- mini.files ============================================================
       require("mini.files").setup()
@@ -34,7 +34,7 @@ return {
         end
       end)()
 
-      require("mini.statusline").setup()
+      require("mini.statusline").setup({ use_icons = true })
 
       -- mini.surround =========================================================
       require("mini.surround").setup()
