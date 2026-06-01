@@ -9,9 +9,11 @@
     let
       pkgs = import nixpkgs {
         system = "aarch64-darwin";
-        config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
-          "acli"
-        ];
+        config.allowUnfreePredicate =
+          pkg:
+          builtins.elem (nixpkgs.lib.getName pkg) [
+            "acli"
+          ];
       };
       # https://github.com/NixOS/nixpkgs/issues/513019
       direnv = pkgs.direnv.overrideAttrs { doCheck = false; };
@@ -82,6 +84,7 @@
           # ==============================================================================
           chezmoi
           claude-code-nix.packages.aarch64-darwin.default
+          devbox
           devenv
           gh
           git
@@ -113,7 +116,7 @@
           # ==============================================================================
           # Nix
           nil
-          nixfmt-rfc-style
+          nixfmt
 
           # Lua
           lua-language-server
