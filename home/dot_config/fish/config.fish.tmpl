@@ -33,6 +33,9 @@ status is-interactive; and begin
     set -x EDITOR nvim
     set -x VISUAL nvim
 
+    # Render Claude Code in the alternate screen buffer (fullscreen, no flicker)
+    set -x CLAUDE_CODE_NO_FLICKER 1
+
     # Prompt
     if test "$TERM" != dumb
         starship init fish | source
@@ -41,9 +44,38 @@ status is-interactive; and begin
     # Auto-load/unload .envrc on directory change
     direnv hook fish | source
 
+    # Auto-load/unload devenv on directory change
+    devenv hook fish | source
+
     # Auto-start tmux on interactive shells outside tmux
     if not set -q TMUX
         tmux attach 2>/dev/null; or tmux new-session -s default -c ~
     end
 
+    # Record the running command ("-" when idle) in a pane-scoped @winname
+    # option; winname.sh joins the non-idle panes into the window name so a
+    # window shows everything running across its panes (e.g. "claude | nvim").
+    # We stash it per pane rather than calling `tmux rename-window` directly so
+    # the name tracks pane switches/closes via tmux's window-layout-changed hook
+    # (see tmux.conf), and we set @winname ourselves rather than letting
+    # automatic-rename read pane_current_command because devenv's auto-activation
+    # subshell hides the real command from it. The regex grabs just the leading
+    # program token (stopping at whitespace or a shell metacharacter) so a piped
+    # command like `cat foo | grep bar` records as "cat", never leaking a literal
+    # pipe into the name. `type -q tmux` guards the case where the tmux binary
+    # isn't on PATH inside a devenv env — then we just no-op.
+    if set -q TMUX; and type -q tmux
+        function _tmux_winname --on-event fish_preexec
+            if string match -rq -- '^\s*(?<prog>[^\s|&;<>()]+)' $argv[1]
+                tmux set -p @winname (path basename -- $prog) 2>/dev/null
+            end
+            ~/.config/tmux/scripts/winname.sh 2>/dev/null
+        end
+        function _tmux_winname_idle --on-event fish_postexec
+            tmux set -p @winname - 2>/dev/null
+            ~/.config/tmux/scripts/winname.sh 2>/dev/null
+        end
+        tmux set -p @winname - 2>/dev/null
+        ~/.config/tmux/scripts/winname.sh 2>/dev/null
+    end
 end
